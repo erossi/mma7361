@@ -22,8 +22,15 @@
 
 #define ZERO_G 0
 #define G_SELECT 1
-#define CHANGED 2
+/*! flag bit to signal a changed in the xyz values.
+ */
+#define CHANGED 5
 
+/*! trigger alarm new value.
+ *
+ * Any new xyz value must change more then ALRM_LEVEL
+ * to be considered a changed.
+ */
 #define ALRM_LEVEL 2
 
 struct accel_t {
