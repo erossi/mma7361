@@ -27,6 +27,9 @@ int main(void)
 	char *string;
 	struct accel_t *accel;
 
+	PORTC = 0;
+	DDRC |= _BV(PC3);
+
 	accel = malloc(sizeof(struct accel_t));
 	accel->flags = 0;
 	adc_init();
@@ -35,6 +38,12 @@ int main(void)
 	string = malloc(20);
 	uart_init(0);
 	uart_printstr(0, "\n\nConnected!\n");
+
+	/* wait 10 seconds */
+	_delay_ms(10000);
+	/* 1st read to settle the initial values */
+	adc_read(accel);
+	accel->flags &= ~_BV(CHANGED);
 
 	while (1) {
 		adc_read(accel);
@@ -51,6 +60,9 @@ int main(void)
 			uart_printstr(0, string);
 			uart_printstr(0, "\n");
 			accel->flags &= ~_BV(CHANGED);
+			PORTC |= _BV(PC3);
+			_delay_ms(5000);
+			PORTC &= ~_BV(PC3);
 		}
 	}
 

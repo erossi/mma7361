@@ -31,7 +31,7 @@
  * Any new xyz value must change more then ALRM_LEVEL
  * to be considered a changed.
  */
-#define ALRM_LEVEL 2
+#define ALRM_LEVEL 20
 
 struct accel_t {
 	uint8_t xyz[3];
